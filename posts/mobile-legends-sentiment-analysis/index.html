@@ -1,0 +1,257 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Indonesian app review classification using TF-IDF and a neural network."><title>Mobile Legends Sentiment Analysis &mdash; Robbi Rizaldi</title><link rel="stylesheet" href="../../assets/blog.css"><link rel="canonical" href="https://robbirizaldi.my.id/blog/posts/mobile-legends-sentiment-analysis/"></head><body class="blog-page"><a class="blog-skip" href="#content">Skip to content</a><div class="blog-shell"><div class="blog-topbar"><div class="blog-topbar__inner"><span>Robbi Rizaldi &middot; Notes &amp; Projects</span><span>October 2026</span></div></div><header class="blog-header"><a class="blog-brand" href="../../">Robbi Rizaldi<small>Projects, tools, and technical notes</small></a><a class="blog-header__link" href="../../../#page-portfolio">Back to portfolio &rarr;</a></header><nav class="blog-nav" aria-label="Blog navigation"><div class="blog-nav__inner"><a href="../../">Home</a><a href="../../#projects">Projects</a><a href="../../../#page-portfolio">Portfolio</a><a href="../../../#page-contact">Contact</a></div></nav><div class="blog-layout"><main class="blog-panel" id="content"><article class="blog-article"><header class="blog-article__header"><h1>Mobile Legends Sentiment Analysis</h1><div class="blog-meta"><span>Published October 2026</span><span class="blog-tag">Project note</span></div></header><div class="blog-content"><div>
+
+  <div>
+    <span>
+      Case Study / Machine Learning &amp; NLP
+    </span>
+  </div>
+
+  <p>
+    An applied NLP project analyzing Indonesian-language Google Play Store reviews for <strong>Mobile Legends: Bang Bang</strong>. The pipeline uses <strong>TF-IDF</strong> feature weighting and a <strong>Feedforward Neural Network (FFNN)</strong> to classify player commentary into positive and negative sentiment categories.
+  </p>
+
+  <div>
+    <div><span>Author:</span><strong>Robbi Rizaldi</strong></div>
+    <div><span>Dataset:</span><strong>~50,000 Play Store Reviews</strong></div>
+    <div><span>Model Stack:</span><strong>TF-IDF + Neural Network (FFNN)</strong></div>
+  </div>
+
+  <div>
+    <a href="../../assets/images/mobile-legends-sentiment-analysis-1.webp">
+      <img src="../../assets/images/mobile-legends-sentiment-analysis-1.webp" alt="Mobile Legends Sentiment Analysis Web App" loading="lazy">
+    </a>
+    <p>
+      Interactive web application supporting real-time single review testing and batch CSV dataset inference.
+    </p>
+  </div>
+
+  <h2>
+    The Problem: Noisy Gaming Reviews at Scale
+  </h2>
+  <p>
+    Mobile Legends: Bang Bang maintains a massive player base across Southeast Asia, generating tens of thousands of comments on the Google Play Store every month. These reviews provide direct signals about game balance, server lag, matchmaking issues, and updates.
+  </p>
+  <p>
+    Manually sifting through that feedback is not practical. On top of the sheer volume, informal Indonesian text is notoriously messy: players blend colloquial slang (<em>bahasa gaul</em>), gaming loanwords (such as <em>nerf</em>, <em>buff</em>, <em>lag</em>, and <em>afk</em>), typographical errors, and shortened spellings.
+  </p>
+  <p>
+    This project set out to build an end-to-end sentiment classification pipeline tailored to this domain. By collecting roughly <strong>50,000 public reviews</strong>, cleaning the text through an Indonesian slang dictionary, computing term weights with <strong>TF-IDF</strong>, and training a <strong>Feedforward Neural Network</strong>, the system flags incoming feedback as positive or negative with an associated probability score.
+  </p>
+
+  <h2>
+    Pipeline &amp; Modeling Workflow
+  </h2>
+  <div>
+
+    <div>
+      <strong>Step 1: Data Collection</strong>
+      <p>
+        Scraped around 50,000 Indonesian user reviews from the Google Play Store, extracting review text, ratings, and submission dates.
+      </p>
+    </div>
+
+    <div>
+      <strong>Step 2: Text Preprocessing</strong>
+      <p>
+        Cleaned raw reviews through multiple steps: lowercasing (case folding), mapping informal gaming slang to root words via a custom lookup dictionary, tokenizing text while stripping punctuation and numbers, filtering out common Indonesian stopwords, and stemming remaining tokens.
+      </p>
+    </div>
+
+    <div>
+      <strong>Step 3: Feature Extraction (TF-IDF)</strong>
+      <p>
+        Converted processed tokens into numeric vector representations using Term Frequency - Inverse Document Frequency, emphasizing terms that carry strong signal across the review corpus.
+      </p>
+    </div>
+
+    <div>
+      <strong>Step 4: Classification (Feedforward Neural Network)</strong>
+      <p>
+        Built and trained a multi-layer FFNN using TensorFlow and Keras. The network pairs dense hidden layers with Dropout regularization to curb overfitting on frequent words, leading into a binary sigmoid output layer.
+      </p>
+    </div>
+
+    <div>
+      <strong>Step 5: Prediction &amp; Scoring</strong>
+      <p>
+        Outputs the predicted class (Positive or Negative) together with a confidence percentage indicating the model&#x27;s certainty.
+      </p>
+    </div>
+
+  </div>
+
+  <h2>
+    Technology Stack
+  </h2>
+  <div>
+    <div>
+      <strong>Python</strong>
+      <p>Primary language used for data preparation, text normalization, and model development.</p>
+    </div>
+    <div>
+      <strong>TensorFlow &amp; Keras</strong>
+      <p>Deep learning framework used to assemble, train, evaluate, and export the neural network.</p>
+    </div>
+    <div>
+      <strong>Pandas &amp; NumPy</strong>
+      <p>Dataset handling, tabular restructuring, and array operations during preprocessing.</p>
+    </div>
+    <div>
+      <strong>TF-IDF Vectorizer</strong>
+      <p>Text token weighting scheme mapping vocabulary terms to numeric model inputs.</p>
+    </div>
+    <div>
+      <strong>Vercel &amp; Railway</strong>
+      <p>Production web hosting for the user interface (Vercel) coupled with an inference backend (Railway).</p>
+    </div>
+  </div>
+
+  <h2>
+    Interactive Web Application Features
+  </h2>
+  <ul>
+    <li><strong>Single sentence classification:</strong> Enter any Indonesian gaming review to receive real-time positive or negative predictions with confidence percentages.</li>
+    <li><strong>Batch dataset processing:</strong> Upload a <code>.csv</code> or <code>.txt</code> file containing multiple reviews to run batch inference and review a formatted output table.</li>
+    <li><strong>Conversational UI:</strong> A clean chat-style layout that displays query history alongside prediction breakdowns.</li>
+    <li><strong>Indonesian gaming slang normalization:</strong> Custom dictionary rules handle terms like <em>bocil</em>, <em>noob</em>, <em>ngelag</em>, and common spelling truncations.</li>
+    <li><strong>Live API integration:</strong> Communicates with an asynchronous prediction server for low-latency scoring.</li>
+  </ul>
+
+  <div>
+    <strong>Context on Model Evaluation</strong>
+    <span>
+      This model classifies reviews strictly into binary buckets (positive vs. negative) and does not include a separate neutral class. In real-world gaming communities, ambiguous remarks and mixed feedback (e.g. praising game graphics while criticizing server latency) remain edge cases that warrant manual review.
+    </span>
+  </div>
+
+  <h2>
+    Screenshots &amp; Evaluation Gallery
+  </h2>
+
+  <div>
+
+    <div>
+      <a href="../../assets/images/mobile-legends-sentiment-analysis-1.webp">
+        <img src="../../assets/images/mobile-legends-sentiment-analysis-1.webp" alt="Chat-Style Input Interface" loading="lazy">
+      </a>
+      <div>
+        <strong>1. Conversational Input Interface</strong>
+        <span>Main interactive chat screen allowing users to type and score custom reviews.</span>
+      </div>
+    </div>
+
+    <div>
+      <a href="../../assets/images/mobile-legends-sentiment-analysis-2.webp">
+        <img src="../../assets/images/mobile-legends-sentiment-analysis-2.webp" alt="Welcome &amp; Prompt Screen" loading="lazy">
+      </a>
+      <div>
+        <strong>2. Welcome &amp; Prompt Screen</strong>
+        <span>Landing screen detailing model capabilities and sample query suggestions.</span>
+      </div>
+    </div>
+
+    <div>
+      <a href="../../assets/images/mobile-legends-sentiment-analysis-3.webp">
+        <img src="../../assets/images/mobile-legends-sentiment-analysis-3.webp" alt="Batch CSV Processing View" loading="lazy">
+      </a>
+      <div>
+        <strong>3. Batch CSV Export</strong>
+        <span>Results table showing sentiment labels across batch uploads ready for CSV download.</span>
+      </div>
+    </div>
+
+    <div>
+      <a href="../../assets/images/mobile-legends-sentiment-analysis-4.webp">
+        <img src="../../assets/images/mobile-legends-sentiment-analysis-4.webp" alt="Model Confusion Matrix" loading="lazy">
+      </a>
+      <div>
+        <strong>4. Confusion Matrix</strong>
+        <span>Evaluation matrix comparing true positive, true negative, false positive, and false negative counts.</span>
+      </div>
+    </div>
+
+    <div>
+      <a href="../../assets/images/mobile-legends-sentiment-analysis-5.webp">
+        <img src="../../assets/images/mobile-legends-sentiment-analysis-5.webp" alt="Model Architecture Diagram" loading="lazy">
+      </a>
+      <div>
+        <strong>5. Network Architecture</strong>
+        <span>Layer structure of the Feedforward Neural Network showing dense and dropout configurations.</span>
+      </div>
+    </div>
+
+    <div>
+      <a href="../../assets/images/mobile-legends-sentiment-analysis-6.webp">
+        <img src="../../assets/images/mobile-legends-sentiment-analysis-6.webp" alt="Model Accuracy Curve" loading="lazy">
+      </a>
+      <div>
+        <strong>6. Accuracy Curves</strong>
+        <span>Progression of training accuracy and validation accuracy over training epochs.</span>
+      </div>
+    </div>
+
+    <div>
+      <a href="../../assets/images/mobile-legends-sentiment-analysis-7.webp">
+        <img src="../../assets/images/mobile-legends-sentiment-analysis-7.webp" alt="Model Loss Curve" loading="lazy">
+      </a>
+      <div>
+        <strong>7. Loss Curves</strong>
+        <span>Cross-entropy loss convergence across training runs.</span>
+      </div>
+    </div>
+  </div>
+
+  <h2>
+    Project Metadata
+  </h2>
+  <table>
+    <tbody>
+      <tr>
+        <td>Category</td>
+        <td>Machine Learning, Natural Language Processing (NLP)</td>
+      </tr>
+      <tr>
+        <td>Task</td>
+        <td>Binary Sentiment Classification (Positive / Negative)</td>
+      </tr>
+      <tr>
+        <td>Dataset</td>
+        <td>~50,000 Google Play Store Reviews</td>
+      </tr>
+      <tr>
+        <td>Feature Representation</td>
+        <td>TF-IDF (Term Frequency - Inverse Document Frequency)</td>
+      </tr>
+      <tr>
+        <td>Model</td>
+        <td>Feedforward Neural Network (FFNN) with Dropout</td>
+      </tr>
+      <tr>
+        <td>Frameworks</td>
+        <td>TensorFlow, Keras, Scikit-learn, Pandas</td>
+      </tr>
+      <tr>
+        <td>Author</td>
+        <td>Robbi Rizaldi</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div>
+    <h3>Try the Live Web App</h3>
+    <p>
+      Test custom Indonesian review text directly on the deployed web application or return to the projects showcase:
+    </p>
+    <div>
+      <a href="https://mlnn.vercel.app/">
+        Visit App (mlnn.vercel.app)
+      </a>
+      <a href="../../../#page-portfolio">
+        
+        <span>Back to Projects</span>
+      </a>
+    </div>
+  </div>
+
+</div>
+</div><nav class="blog-post-nav" aria-label="Article navigation"><a href="../../">&larr; All articles</a><a href="../../../#page-portfolio">Portfolio &rarr;</a></nav></article></main><aside class="blog-sidebar"><section class="blog-sidebar__panel"><h2>About this blog</h2><p>Technical notes and project case studies by Robbi Rizaldi, adapted from the original project write-ups.</p></section><section class="blog-sidebar__panel"><h2>More articles</h2><ul><li><a href="../wv-jangkrik-administrative-system/">Motorcycle Accessories Administrative System</a></li><li><a href="../instagram-follow-analyzer/">Instagram Follow Analyzer</a></li></ul></section></aside></div><footer class="blog-footer">&copy; 2026 Robbi Rizaldi &middot; <a href="../../../">Return to the main site</a></footer></div><button class="blog-to-top" type="button" data-blog-top aria-label="Back to top">&uarr; Top</button><script src="../../assets/blog.js" defer></script></body></html>
