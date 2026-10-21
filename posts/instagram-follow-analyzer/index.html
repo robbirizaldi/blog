@@ -1,0 +1,246 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Analyze follower relationships from Instagram exports, directly in your browser."><title>Instagram Follow Analyzer &mdash; Robbi Rizaldi</title><link rel="stylesheet" href="../../assets/blog.css"><link rel="canonical" href="https://robbirizaldi.my.id/blog/posts/instagram-follow-analyzer/"></head><body class="blog-page"><a class="blog-skip" href="#content">Skip to content</a><div class="blog-shell"><div class="blog-topbar"><div class="blog-topbar__inner"><span>Robbi Rizaldi &middot; Notes &amp; Projects</span><span>October 2026</span></div></div><header class="blog-header"><a class="blog-brand" href="../../">Robbi Rizaldi<small>Projects, tools, and technical notes</small></a><a class="blog-header__link" href="../../../#page-portfolio">Back to portfolio &rarr;</a></header><nav class="blog-nav" aria-label="Blog navigation"><div class="blog-nav__inner"><a href="../../">Home</a><a href="../../#projects">Projects</a><a href="../../../#page-portfolio">Portfolio</a><a href="../../../#page-contact">Contact</a></div></nav><div class="blog-layout"><main class="blog-panel" id="content"><article class="blog-article"><header class="blog-article__header"><h1>Instagram Follow Analyzer</h1><div class="blog-meta"><span>Published October 2026</span><span class="blog-tag">Project note</span></div></header><div class="blog-content">
+
+<div>
+
+  <div>
+    <a href="../../../#page-portfolio">
+      
+      <span>BACK</span>
+    </a>
+  </div>
+
+  <div>
+    <span>
+      Web Tool / JavaScript
+    </span>
+  </div>
+
+  <p>
+    <strong>Instagram Follow Analyzer</strong> is a client-side browser utility built to inspect official Instagram account data exports. It parses follower and following lists directly on your device, sorting accounts into practical groups such as non-followers, fans, mutuals, and recently unfollowed profiles.
+  </p>
+
+  <div>
+    <strong>Local Browser Processing (Privacy First)</strong>
+    <span>
+      The entire parsing process happens inside your browser. The tool never asks for your Instagram login, password, or session cookies, and none of your files are uploaded to an external server.
+    </span>
+  </div>
+
+  <h2>
+    Project Overview
+  </h2>
+  <p>
+    Most third-party tools that track unfollowers require users to hand over their account credentials or grant risky API permissions. This project takes an alternate route: you download your official account archive directly from Instagram&#x27;s privacy center, drop the JSON files into the tool, and let your browser handle the math.
+  </p>
+  <p>
+    The workflow is straightforward: upload your files, let the script compare account sets, inspect the sorted table, search for specific handles, and export the visible records to a clean CSV file whenever needed.
+  </p>
+
+  <h2>
+    How the Pipeline Works
+  </h2>
+  <div>
+    <div>
+      <span>01. Download Archive</span>
+      <p>
+        Request your Instagram account export in JSON format and extract the followers and following files.
+      </p>
+    </div>
+    <div>
+      <span>02. Local JSON Parsing</span>
+      <p>
+        The browser reads each file, extracts usernames, timestamps, and profile URLs, then indexes them in JavaScript Maps.
+      </p>
+    </div>
+    <div>
+      <span>03. Set Comparison</span>
+      <p>
+        Calculates intersections and differences to group accounts into mutuals, fans, and people not following you back.
+      </p>
+    </div>
+    <div>
+      <span>04. Filter &amp; Export</span>
+      <p>
+        Search handles, switch category tabs, sort by date or alphabetical order, and download the active list as a CSV.
+      </p>
+    </div>
+  </div>
+
+  <h2>
+    Core Features
+  </h2>
+  <ul>
+    <li><strong>Multi-file follower support:</strong> Correctly merges follower lists split across multiple files (such as <code>followers_1.json</code>, <code>followers_2.json</code>, and so on).</li>
+    <li><strong>Unfollow tracking:</strong> Imports <code>following.json</code> as well as optional <code>recently_unfollowed_profiles.json</code> exports.</li>
+    <li><strong>Clear relationship buckets:</strong> Instantly breaks down mutuals, fans, not-following-back accounts, all followers, all following, and recent unfollows.</li>
+    <li><strong>Search and sort:</strong> Real-time text search for usernames with one-click alphabetical and timestamp sorting.</li>
+    <li><strong>Client-side CSV export:</strong> Converts whichever table you are currently viewing into a downloadable CSV file on the fly.</li>
+    <li><strong>Zero credentials required:</strong> Works strictly with exported data files, keeping your login details safe.</li>
+  </ul>
+
+  <h2>
+    Technology Stack
+  </h2>
+  <div>
+    <div>
+      <strong>HTML5</strong>
+      <p>Semantic structure for upload controls, filters, and tabular results.</p>
+    </div>
+    <div>
+      <strong>CSS3</strong>
+      <p>Responsive layout with clean card styles and mobile adjustments.</p>
+    </div>
+    <div>
+      <strong>JavaScript (ES6+)</strong>
+      <p>In-memory file reading, JSON parsing, set calculations, filtering, and CSV creation.</p>
+    </div>
+    <div>
+      <strong>JSON</strong>
+      <p>Standard export format produced by Meta&#x27;s account download center.</p>
+    </div>
+  </div>
+
+  <h2>
+    Screenshots &amp; Interface
+  </h2>
+  <p>
+    Here is a walkthrough of the tool&#x27;s interface and features:
+  </p>
+
+  <div>
+
+    <div>
+      <a href="../../assets/images/instagram-follow-analyzer-1.webp">
+        <img src="../../assets/images/instagram-follow-analyzer-1.webp" alt="Instagram Follow Analyzer - Overview" loading="lazy">
+      </a>
+      <div>
+        <strong>01. Overview</strong>
+        <span>Main landing interface for the Instagram Follow Analyzer.</span>
+      </div>
+    </div>
+
+    <div>
+      <a href="../../assets/images/instagram-follow-analyzer-2.webp">
+        <img src="../../assets/images/instagram-follow-analyzer-2.webp" alt="Instagram Follow Analyzer - JSON Export Guide" loading="lazy">
+      </a>
+      <div>
+        <strong>02. JSON Export Guide</strong>
+        <span>Step-by-step instructions showing how to download the right files from Instagram.</span>
+      </div>
+    </div>
+
+    <div>
+      <a href="../../assets/images/instagram-follow-analyzer-3.webp">
+        <img src="../../assets/images/instagram-follow-analyzer-3.webp" alt="Instagram Follow Analyzer - Upload Interface" loading="lazy">
+      </a>
+      <div>
+        <strong>03. Upload Interface</strong>
+        <span>Drag-and-drop file inputs for followers, following, and unfollow records.</span>
+      </div>
+    </div>
+
+    <div>
+      <a href="../../assets/images/instagram-follow-analyzer-4.webp">
+        <img src="../../assets/images/instagram-follow-analyzer-4.webp" alt="Instagram Follow Analyzer - Upload Result" loading="lazy">
+      </a>
+      <div>
+        <strong>04. Upload Result</strong>
+        <span>Confirmation screen showing parsing progress and record totals.</span>
+      </div>
+    </div>
+
+    <div>
+      <a href="../../assets/images/instagram-follow-analyzer-5.webp">
+        <img src="../../assets/images/instagram-follow-analyzer-5.webp" alt="Instagram Follow Analyzer - Analysis Dashboard" loading="lazy">
+      </a>
+      <div>
+        <strong>05. Analysis Dashboard</strong>
+        <span>Card breakdown summarizing total followers, following, mutuals, and fans.</span>
+      </div>
+    </div>
+
+    <div>
+      <a href="../../assets/images/instagram-follow-analyzer-6.webp">
+        <img src="../../assets/images/instagram-follow-analyzer-6.webp" alt="Instagram Follow Analyzer - Filtering &amp; Search" loading="lazy">
+      </a>
+      <div>
+        <strong>06. Search &amp; Filtering</strong>
+        <span>Filter tabs, username keyword search, and column sorting controls.</span>
+      </div>
+    </div>
+
+    <div>
+      <a href="../../assets/images/instagram-follow-analyzer-7.webp">
+        <img src="../../assets/images/instagram-follow-analyzer-7.webp" alt="Instagram Follow Analyzer - CSV Export" loading="lazy">
+      </a>
+      <div>
+        <strong>07. CSV Export</strong>
+        <span>Active table view prepared for one-click CSV spreadsheet export.</span>
+      </div>
+    </div>
+
+    <div>
+      <a href="../../assets/images/instagram-follow-analyzer-8.webp">
+        <img src="../../assets/images/instagram-follow-analyzer-8.webp" alt="Instagram Follow Analyzer - Mobile View" loading="lazy">
+      </a>
+      <div>
+        <strong>08. Mobile View</strong>
+        <span>Adaptive mobile layout running smoothly on small phone screens.</span>
+      </div>
+    </div>
+
+  </div>
+
+  <h2>
+    Project Details
+  </h2>
+  <table>
+    <tbody>
+      <tr>
+        <td>Category</td>
+        <td>Web Tool / Data Analysis</td>
+      </tr>
+      <tr>
+        <td>Platform</td>
+        <td>Browser (Client-Side)</td>
+      </tr>
+      <tr>
+        <td>Stack</td>
+        <td>HTML, CSS, JavaScript (ES6+), JSON</td>
+      </tr>
+      <tr>
+        <td>Input</td>
+        <td>Official Instagram account export files</td>
+      </tr>
+      <tr>
+        <td>Output</td>
+        <td>Interactive relationship tables &amp; CSV files</td>
+      </tr>
+      <tr>
+        <td>Author</td>
+        <td>Robbi Rizaldi</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div>
+    <h3>Try the Tool or Explore the Code</h3>
+    <p>
+      Launch the live tool in your browser, inspect the source code, or return to the projects showcase:
+    </p>
+    <div>
+      <a href="../../../tools/ig-analyzer/">
+        Launch Live Tool
+      </a>
+      <a href="https://github.com/robbirizaldi/ig-anlys">
+        GitHub Repository
+      </a>
+      <a href="../../../#page-portfolio">
+        
+        <span>Back to Projects</span>
+      </a>
+    </div>
+  </div>
+
+</div>
+</div><nav class="blog-post-nav" aria-label="Article navigation"><a href="../../">&larr; All articles</a><a href="../../../#page-portfolio">Portfolio &rarr;</a></nav></article></main><aside class="blog-sidebar"><section class="blog-sidebar__panel"><h2>About this blog</h2><p>Technical notes and project case studies by Robbi Rizaldi, adapted from the original project write-ups.</p></section><section class="blog-sidebar__panel"><h2>More articles</h2><ul><li><a href="../mobile-legends-sentiment-analysis/">Mobile Legends Sentiment Analysis</a></li><li><a href="../wv-jangkrik-administrative-system/">Motorcycle Accessories Administrative System</a></li></ul></section></aside></div><footer class="blog-footer">&copy; 2026 Robbi Rizaldi &middot; <a href="../../../">Return to the main site</a></footer></div><button class="blog-to-top" type="button" data-blog-top aria-label="Back to top">&uarr; Top</button><script src="../../assets/blog.js" defer></script></body></html>
