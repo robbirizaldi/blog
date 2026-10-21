@@ -1,0 +1,228 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Desktop inventory, sales, and reporting system built with Java and MySQL."><title>Motorcycle Accessories Administrative System &mdash; Robbi Rizaldi</title><link rel="stylesheet" href="../../assets/blog.css"><link rel="canonical" href="https://robbirizaldi.my.id/blog/posts/wv-jangkrik-administrative-system/"></head><body class="blog-page"><a class="blog-skip" href="#content">Skip to content</a><div class="blog-shell"><div class="blog-topbar"><div class="blog-topbar__inner"><span>Robbi Rizaldi &middot; Notes &amp; Projects</span><span>October 2026</span></div></div><header class="blog-header"><a class="blog-brand" href="../../">Robbi Rizaldi<small>Projects, tools, and technical notes</small></a><a class="blog-header__link" href="../../../#page-portfolio">Back to portfolio &rarr;</a></header><nav class="blog-nav" aria-label="Blog navigation"><div class="blog-nav__inner"><a href="../../">Home</a><a href="../../#projects">Projects</a><a href="../../../#page-portfolio">Portfolio</a><a href="../../../#page-contact">Contact</a></div></nav><div class="blog-layout"><main class="blog-panel" id="content"><article class="blog-article"><header class="blog-article__header"><h1>Motorcycle Accessories Administrative System</h1><div class="blog-meta"><span>Published October 2026</span><span class="blog-tag">Project note</span></div></header><div class="blog-content">
+<div>
+
+  <div>
+    <span>
+      Desktop App / Java &amp; MySQL
+    </span>
+  </div>
+
+  <p>
+    A desktop administrative and point-of-sale system developed for <strong>Toko Aksesoris Motor WV Jangkrik</strong>, a retail motorcycle accessories store. The application automates inventory tracking, cashier checkout transactions, supplier restock logging, employee records, and monthly accounting reports.
+  </p>
+
+  <div>
+    <a href="../../assets/images/wv-jangkrik-administrative-system-1.webp">
+      <img src="../../assets/images/wv-jangkrik-administrative-system-1.webp" alt="WV Jangkrik Administrative System Dashboard" loading="lazy">
+    </a>
+    <p>
+      Main dashboard and navigation menu for Toko Aksesoris Motor WV Jangkrik.
+    </p>
+  </div>
+
+  <h2>
+    Business Context &amp; Problem
+  </h2>
+  <p>
+    Toko Aksesoris Motor WV Jangkrik stocks hundreds of individual motorcycle parts and aftermarket accessories, including brake assemblies, shock absorbers, exhaust systems, electrical wiring, cosmetic body parts, and maintenance lubricants.
+  </p>
+  <p>
+    Before implementing this system, the shop logged every retail transaction and stock delivery into physical paper ledgers. This manual setup created familiar headaches: handwritten records frequently failed to match actual shelf counts, stockouts were discovered only when customers asked for missing parts, and tallying monthly revenue took hours of manual paperwork.
+  </p>
+  <p>
+    To fix these bottlenecks, we designed a centralized desktop client using <strong>Java (Swing)</strong> paired with a normalized <strong>MySQL database</strong>. The software enforces role-based access for administrators and cashiers, deducts inventory automatically with every sale, and generates structured turnover reports on demand.
+  </p>
+
+  <h2>
+    Core System Modules
+  </h2>
+  <ul>
+    <li><strong>Inventory Management (Master Barang):</strong> Central catalog allowing staff to add, update, search, and monitor parts (item code, product name, accessory category, cost price, retail price, and stock levels).</li>
+    <li><strong>Employee Administration (Karyawan):</strong> Staff records covering identities, roles (admin vs. cashier), contact numbers, and login credentials for system authentication.</li>
+    <li><strong>Inbound Procurement (Pembelian):</strong> Logs restock deliveries from parts distributors, tracks purchase costs, and increments warehouse inventory quantities upon confirmation.</li>
+    <li><strong>Cashier POS Billing (Pembayaran):</strong> Front-counter checkout interface that calculates item subtotals, applies discounts, computes change, and automatically decrements inventory counts in real time.</li>
+    <li><strong>Administrative Reporting (Laporan):</strong> Produces printable operational summaries covering inventory valuation, fast-moving items, daily and monthly sales totals, and supplier order histories.</li>
+  </ul>
+
+  <h2>
+    System Design &amp; UML Diagrams
+  </h2>
+  <p>
+    The software was developed following object-oriented design principles, mapped out across four core UML diagrams:
+  </p>
+
+  <div>
+
+    <div>
+      <a href="../../assets/images/wv-jangkrik-administrative-system-2.webp">
+        <img src="../../assets/images/wv-jangkrik-administrative-system-2.webp" alt="Use Case Diagram" loading="lazy">
+      </a>
+      <div>
+        <strong>Use Case Diagram</strong>
+        <span>User permissions and system boundaries for Admins, Cashiers, and the Owner.</span>
+      </div>
+    </div>
+
+    <div>
+      <a href="../../assets/images/wv-jangkrik-administrative-system-3.webp">
+        <img src="../../assets/images/wv-jangkrik-administrative-system-3.webp" alt="Activity Diagram" loading="lazy">
+      </a>
+      <div>
+        <strong>Activity Diagram</strong>
+        <span>Sequential workflow of a cashier sales checkout and database update.</span>
+      </div>
+    </div>
+
+    <div>
+      <a href="../../assets/images/wv-jangkrik-administrative-system-4.webp">
+        <img src="../../assets/images/wv-jangkrik-administrative-system-4.webp" alt="Sequence Diagram" loading="lazy">
+      </a>
+      <div>
+        <strong>Sequence Diagram</strong>
+        <span>Object communication flow between Swing forms, controllers, and JDBC queries.</span>
+      </div>
+    </div>
+
+    <div>
+      <a href="../../assets/images/wv-jangkrik-administrative-system-5.webp">
+        <img src="../../assets/images/wv-jangkrik-administrative-system-5.webp" alt="Class Diagram" loading="lazy">
+      </a>
+      <div>
+        <strong>Class Diagram</strong>
+        <span>Entity structure showing relations between Barang, Karyawan, Pembelian, and DB connectors.</span>
+      </div>
+    </div>
+
+  </div>
+
+  <h2>
+    Desktop Application Interface
+  </h2>
+
+  <div>
+
+    <div>
+      <a href="../../assets/images/wv-jangkrik-administrative-system-1.webp">
+        <img src="../../assets/images/wv-jangkrik-administrative-system-1.webp" alt="Home Dashboard" loading="lazy">
+      </a>
+      <div>
+        <strong>Home Dashboard</strong>
+        <span>Main menu giving quick access to inventory, sales, procurement, and reports.</span>
+      </div>
+    </div>
+
+    <div>
+      <a href="../../assets/images/wv-jangkrik-administrative-system-6.webp">
+        <img src="../../assets/images/wv-jangkrik-administrative-system-6.webp" alt="Login Authentication" loading="lazy">
+      </a>
+      <div>
+        <strong>User Login</strong>
+        <span>Authentication dialog restricting system access by employee role.</span>
+      </div>
+    </div>
+
+    <div>
+      <a href="../../assets/images/wv-jangkrik-administrative-system-7.webp">
+        <img src="../../assets/images/wv-jangkrik-administrative-system-7.webp" alt="Master Parts Inventory" loading="lazy">
+      </a>
+      <div>
+        <strong>Parts Catalog (Brake Systems)</strong>
+        <span>Inventory view for managing parts specifications, pricing, and live counts.</span>
+      </div>
+    </div>
+
+    <div>
+      <a href="../../assets/images/wv-jangkrik-administrative-system-8.webp">
+        <img src="../../assets/images/wv-jangkrik-administrative-system-8.webp" alt="Purchase Entry Screen" loading="lazy">
+      </a>
+      <div>
+        <strong>Inbound Purchasing Form</strong>
+        <span>Entry screen logging supplier shipments and restocking batches.</span>
+      </div>
+    </div>
+
+    <div>
+      <a href="../../assets/images/wv-jangkrik-administrative-system-9.webp">
+        <img src="../../assets/images/wv-jangkrik-administrative-system-9.webp" alt="Report Screen" loading="lazy">
+      </a>
+      <div>
+        <strong>Reports &amp; Accounting</strong>
+        <span>Printable sales and inventory movement summaries for the business owner.</span>
+      </div>
+    </div>
+
+  </div>
+
+  <h2>
+    Technical Stack
+  </h2>
+  <div>
+    <div>
+      <strong>Java (Swing &amp; JDBC)</strong>
+      <p>Desktop application runtime, user interface forms, event handlers, and database connections.</p>
+    </div>
+    <div>
+      <strong>MySQL</strong>
+      <p>Relational database holding normalized tables for parts, employee credentials, and checkout receipts.</p>
+    </div>
+    <div>
+      <strong>NetBeans IDE</strong>
+      <p>Primary development environment used for Swing GUI form layout and project builds.</p>
+    </div>
+    <div>
+      <strong>XAMPP &amp; phpMyAdmin</strong>
+      <p>Local server stack managing the MySQL daemon and table migrations during development.</p>
+    </div>
+  </div>
+
+  <h2>
+    Project Summary
+  </h2>
+  <table>
+    <tbody>
+      <tr>
+        <td>Project Title</td>
+        <td>Motorcycle Accessories Administrative System</td>
+      </tr>
+      <tr>
+        <td>Client / Context</td>
+        <td>Toko Aksesoris Motor WV Jangkrik</td>
+      </tr>
+      <tr>
+        <td>Application Type</td>
+        <td>Desktop Administrative &amp; Inventory POS System</td>
+      </tr>
+      <tr>
+        <td>Architecture</td>
+        <td>Client-Database (Java Swing + JDBC + MySQL)</td>
+      </tr>
+      <tr>
+        <td>Database</td>
+        <td>MySQL (Relational normalized schema)</td>
+      </tr>
+      <tr>
+        <td>Core Modules</td>
+        <td>Inventory, Employees, Inbound Purchasing, POS Cashier, Reports</td>
+      </tr>
+      <tr>
+        <td>Developers</td>
+        <td>Robbi Rizaldi &amp; Team</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div>
+    <h3>Explore Portfolio</h3>
+    <p>
+      Return to the main showcase to view more projects and case studies:
+    </p>
+    <div>
+      <a href="../../../#page-portfolio">
+        
+        <span>Back to Projects</span>
+      </a>
+    </div>
+  </div>
+
+</div>
+</div><nav class="blog-post-nav" aria-label="Article navigation"><a href="../../">&larr; All articles</a><a href="../../../#page-portfolio">Portfolio &rarr;</a></nav></article></main><aside class="blog-sidebar"><section class="blog-sidebar__panel"><h2>About this blog</h2><p>Technical notes and project case studies by Robbi Rizaldi, adapted from the original project write-ups.</p></section><section class="blog-sidebar__panel"><h2>More articles</h2><ul><li><a href="../mobile-legends-sentiment-analysis/">Mobile Legends Sentiment Analysis</a></li><li><a href="../instagram-follow-analyzer/">Instagram Follow Analyzer</a></li></ul></section></aside></div><footer class="blog-footer">&copy; 2026 Robbi Rizaldi &middot; <a href="../../../">Return to the main site</a></footer></div><button class="blog-to-top" type="button" data-blog-top aria-label="Back to top">&uarr; Top</button><script src="../../assets/blog.js" defer></script></body></html>
