@@ -1,4 +1,30 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Indonesian app review classification using TF-IDF and a neural network."><title>Mobile Legends Sentiment Analysis &mdash; Robbi Rizaldi</title><link rel="stylesheet" href="../../assets/blog.css"><link rel="canonical" href="https://robbirizaldi.my.id/blog/posts/mobile-legends-sentiment-analysis/"></head><body class="blog-page"><a class="blog-skip" href="#content">Skip to content</a><div class="blog-shell"><div class="blog-topbar"><div class="blog-topbar__inner"><span>Robbi Rizaldi &middot; Notes &amp; Projects</span><span>October 2026</span></div></div><header class="blog-header"><a class="blog-brand" href="../../">Robbi Rizaldi<small>Projects, tools, and technical notes</small></a><a class="blog-header__link" href="https://robbirizaldi.my.id/#page-portfolio">Back to portfolio &rarr;</a></header><nav class="blog-nav" aria-label="Blog navigation"><div class="blog-nav__inner"><a href="../../">Home</a><a href="https://robbirizaldi.my.id/#projects">Projects</a><a href="https://robbirizaldi.my.id/#page-portfolio">Portfolio</a><a href="https://robbirizaldi.my.id/#page-contact">Contact</a></div></nav><div class="blog-layout"><main class="blog-panel" id="content"><article class="blog-article"><header class="blog-article__header"><h1>Mobile Legends Sentiment Analysis</h1><div class="blog-meta"><span>Published October 2026</span><span class="blog-tag">Project note</span></div></header><div class="blog-content"><div>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Indonesian app review classification using TF-IDF and a neural network."><title>Mobile Legends Sentiment Analysis &mdash; Robbi Rizaldi</title><link rel="stylesheet" href="../../assets/blog.css"><link rel="canonical" href="https://robbirizaldi.my.id/blog/posts/mobile-legends-sentiment-analysis/">    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem("site-theme") || localStorage.getItem("theme");
+          if (!t && window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
+            t = "dark";
+          }
+          if (t === "dark") document.documentElement.setAttribute("data-theme", "dark");
+          else if (t === "light") document.documentElement.setAttribute("data-theme", "light");
+        } catch (e) {}
+      })();
+    </script>
+  </head><body class="blog-page"><a class="blog-skip" href="#content">Skip to content</a><div class="blog-shell"><div class="blog-topbar"><div class="blog-topbar__inner"><span>Robbi Rizaldi &middot; Notes &amp; Projects</span><span>October 2026</span></div></div><header class="blog-header"><a class="blog-brand" href="../../">Robbi Rizaldi<small>Projects, tools, and technical notes</small></a><a class="blog-header__link" href="https://robbirizaldi.my.id/#page-portfolio">Back to portfolio &rarr;</a></header><nav class="blog-nav" aria-label="Blog navigation">
+        <div class="blog-nav__inner">
+          <a href="../../">Home</a><a href="https://robbirizaldi.my.id/#page-portfolio">Projects</a><a href="https://robbirizaldi.my.id/#page-portfolio">Portfolio</a><a href="https://robbirizaldi.my.id/#page-contact">Contact</a>
+          <button
+            class="blog-theme-toggle"
+            type="button"
+            data-blog-theme-toggle
+            aria-label="Toggle dark mode"
+            title="Toggle theme"
+          >
+            <svg class="blog-theme-icon blog-theme-icon--moon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.3 2a10 10 0 0 0-.19 14 10 10 0 0 0 11.8 1.8 1 1 0 0 0 .1-1.6 10 10 0 0 1-10.1-14 1 1 0 0 0-1.61-.2z"/></svg>
+            <svg class="blog-theme-icon blog-theme-icon--sun" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58a.996.996 0 00-1.41 0 .996.996 0 000 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41L5.99 4.58zm12.37 12.37a.996.996 0 00-1.41 0 .996.996 0 000 1.41l1.06 1.06c.39.39 1.03.39 1.41 0 .39-.39.39-1.03 0-1.41l-1.06-1.06zm1.06-10.96a.996.996 0 000-1.41.996.996 0 00-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06zM7.05 18.36a.996.996 0 000-1.41.996.996 0 00-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06z"/></svg>
+            <span class="blog-theme-label">Theme</span>
+          </button>
+        </div></nav><div class="blog-layout"><main class="blog-panel" id="content"><article class="blog-article"><header class="blog-article__header"><h1>Mobile Legends Sentiment Analysis</h1><div class="blog-meta"><span>Published October 2026</span><span class="blog-tag">Project note</span></div></header><div class="blog-content"><div>
 
   <div>
     <span>
@@ -13,7 +39,7 @@
   <div>
     <div><span>Author:</span><strong>Robbi Rizaldi</strong></div>
     <div><span>Dataset:</span><strong>~50,000 Play Store Reviews</strong></div>
-    <div><span>Model Stack:</span><strong>TF-IDF + Neural Netwhttps://robbirizaldi.my.id/ork (FFNN)</strong></div>
+    <div><span>Model Stack:</span><strong>TF-IDF + Neural Network (FFNN)</strong></div>
   </div>
 
   <div>
@@ -243,15 +269,15 @@
       Test custom Indonesian review text directly on the deployed web application or return to the projects showcase:
     </p>
     <div>
-      <a href="https://mlbbnn.vercel.app/">
+      <a href="https://mlnn.vercel.app/">
         Visit App (mlnn.vercel.app)
       </a>
       <a href="https://robbirizaldi.my.id/#page-portfolio">
-        
+
         <span>Back to Projects</span>
       </a>
     </div>
   </div>
 
 </div>
-</div><nav class="blog-post-nav" aria-label="Article navigation"><a href="../../">&larr; All articles</a><a href="https://robbirizaldi.my.id/#page-portfolio">Portfolio &rarr;</a></nav></article></main><aside class="blog-sidebar"><section class="blog-sidebar__panel"><h2>About this blog</h2><p>Technical notes and project case studies by Robbi Rizaldi, adapted from the original project write-ups.</p></section><section class="blog-sidebar__panel"><h2>More articles</h2><ul><li><a href="../wv-jangkrik-administrative-system/">Motorcycle Accessories Administrative System</a></li><li><a href="../instagram-follow-analyzer/">Instagram Follow Analyzer</a></li></ul></section></aside></div><footer class="blog-footer">&copy; 2026 Robbi Rizaldi &middot; <a href="../../../">Return to the main site</a></footer></div><button class="blog-to-top" type="button" data-blog-top aria-label="Back to top">&uarr; Top</button><script src="../../assets/blog.js" defer></script></body></html>
+</div><nav class="blog-post-nav" aria-label="Article navigation"><a href="../../">&larr; All articles</a><a href="https://robbirizaldi.my.id/#page-portfolio">Portfolio &rarr;</a></nav></article></main><aside class="blog-sidebar"><section class="blog-sidebar__panel"><h2>About this blog</h2><p>Technical notes and project case studies by Robbi Rizaldi, adapted from the original project write-ups.</p></section><section class="blog-sidebar__panel"><h2>More articles</h2><ul><li><a href="../wv-jangkrik-administrative-system/">Motorcycle Accessories Administrative System</a></li><li><a href="../instagram-follow-analyzer/">Instagram Follow Analyzer</a></li></ul></section></aside></div><footer class="blog-footer">&copy; 2026 Robbi Rizaldi &middot; <a href="https://robbirizaldi.my.id/">Return to the main site</a></footer></div><button class="blog-to-top" type="button" data-blog-top aria-label="Back to top">&uarr; Top</button><script src="../../assets/blog.js" defer></script></body></html>
